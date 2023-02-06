@@ -4,7 +4,7 @@
 <mat-list role="list">
     <mat-list-item role="listitem" *ngFor="let item of categories$ | async">
         <button mat-button [routerLink]="'categories/' + item.id"> {{item.name }}</button>
-<button mat-button [routerLink]="'edit/' + item.id">
+<button mat-button [routerLink]="'categories/edit/' + item.id">
     <mat-icon>edit</mat-icon>
 </button>
     </mat-list-item>

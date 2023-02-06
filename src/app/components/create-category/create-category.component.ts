@@ -15,12 +15,14 @@ export class CreateCategoryComponent {
   constructor(private _categoryService: CategoryService, private _router: Router) {
   }  
 
+  //get form
   readonly form: FormGroup = new FormGroup({ 
     name: new FormControl() });
 
+    //create category
   onFormSubmitted(form: FormGroup): void {
       this._categoryService.create({
-        name: form.get('name')?.value,
+        name: form.get('name')?.value,//come back to page
       }).subscribe(() => this._router.navigate(['']));
   }
     
