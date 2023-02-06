@@ -26,25 +26,6 @@ export class CategoryService {
         return this._httpClient.get<CategoryModel>('https://63761992b5f0e1eb850298da.mockapi.io/categories/' + id)
       }
 
-  //tasks
-  getAllTasks(): Observable<TaskModel[]> {
-        return this._httpClient.get<TaskModel[]>('https://63761992b5f0e1eb850298da.mockapi.io/tasks')
-      }
-
-  createTask(createTask:TaskModel): Observable<TaskModel> {
-        return this._httpClient.post<TaskModel>('https://63761992b5f0e1eb850298da.mockapi.io/tasks', createTask)
-      }
-      
-  deleteTask(id: string): Observable<TaskModel> {
-        return this._httpClient.delete<TaskModel>('https://63761992b5f0e1eb850298da.mockapi.io/tasks/' + id)
-      }
-
-  editTask(task:TaskModel): Observable<TaskModel>{
-        return this._httpClient.put<TaskModel>('https://63761992b5f0e1eb850298da.mockapi.io/tasks/' + task.id, task)
-      }
-
-  getOneTask(id: TaskModel): Observable<TaskModel> {
-        return this._httpClient.get<TaskModel>('https://63761992b5f0e1eb850298da.mockapi.io/tasks/' + id);
-      }
+ 
   }
 

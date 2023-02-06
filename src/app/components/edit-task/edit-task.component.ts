@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, switchMap, take, tap } from 'rxjs';
 import { TaskModel } from 'src/app/models/task.model';
+import { TaskService } from 'src/app/services/task.service';
 import { CategoryModel } from '../../models/category.model';
 import { CategoryService } from '../../services/category.service';
 
@@ -26,12 +27,12 @@ export class EditTaskComponent {
   
   //get task and patch form with data
   readonly task$: Observable<TaskModel> = this._activatedRoute.params.pipe(
-    switchMap(data => this._categoryService.getOneTask(data['id'])),
+    switchMap(data => this._taskService.getOneTask(data['id'])),
     take(1),
     tap((data: TaskModel) => this.form.patchValue(data)));
 
 
-  constructor(private _categoryService: CategoryService, private _router: Router, private _activatedRoute: ActivatedRoute,) {
+  constructor(private _categoryService: CategoryService, private _router: Router, private _activatedRoute: ActivatedRoute, private _taskService:TaskService) {
     this.task$.subscribe()
   }
 
@@ -41,7 +42,7 @@ export class EditTaskComponent {
     .pipe(
       take(1),
         switchMap((data) =>
-            this._categoryService.editTask({
+            this._taskService.editTask({
               id:data['id'],
               ...form.value,}))//come back to page
     ).subscribe(() => this._router.navigate(['categories/' + this.form.get('categoryId')?.value]))};

@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/
 import { ActivatedRoute, Params } from '@angular/router';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { filter, map, switchMap } from 'rxjs/operators';
+import { TaskService } from 'src/app/services/task.service';
 import { CategoryModel } from '../../models/category.model';
 import { TaskModel } from '../../models/task.model';
 import { CategoryService } from '../../services/category.service';
@@ -20,7 +21,7 @@ export class CategoryDetailComponent {
     switchMap(data => this._categoryService.getOne(data['id'])))
 // get the tasks and filter by categoryId
   readonly tasks$: Observable<TaskModel[]> = combineLatest([
-    this._categoryService.getAllTasks(),
+    this._taskService.getAllTasks(),
     this._activatedRoute.params])
     .pipe(
     map(([tasksList, params]: [TaskModel[], Params]) => {
@@ -28,7 +29,7 @@ export class CategoryDetailComponent {
     })
   );
 
-constructor(private _categoryService: CategoryService, private _activatedRoute: ActivatedRoute) {
+constructor(private _categoryService: CategoryService, private _activatedRoute: ActivatedRoute, private _taskService: TaskService) {
   }
 
 //refresh tasks after delete
@@ -40,7 +41,7 @@ constructor(private _categoryService: CategoryService, private _activatedRoute: 
 
 //delete task
 onButtonRemoved(id:string) {
- this._categoryService.deleteTask(id)//refresh the page
+ this._taskService.deleteTask(id)//refresh the page
  .subscribe(() => this._refreshedTaskSubject.next());
 }
 
